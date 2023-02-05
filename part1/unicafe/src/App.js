@@ -8,9 +8,11 @@ const Button = ({ text, handleClick }) => (
 
 const Statistics = ({ good, neutral, bad }) => {
   const totalVotes = good + neutral + bad
-  const divideBy = totalVotes === 0 ? 1 : totalVotes
-  const average = (good - bad) / divideBy
-  const positive = (good * 100) / divideBy
+  if (!totalVotes) {
+    return <h3>No feedback given</h3>
+  }
+  const average = (good - bad) / totalVotes
+  const positive = (good * 100) / totalVotes
   return (
     <>
       <h2>statistics</h2>
