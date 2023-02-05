@@ -18,24 +18,30 @@ const Statistics = ({ good, neutral, bad }) => {
   if (!totalVotes) {
     return (
       <table>
-        <tr>
-          <td>No feedback given</td>
-        </tr>
+        <thead>
+          <tr>
+            <td>No feedback given</td>
+          </tr>
+        </thead>
       </table>)
   }
   const average = ((good - bad) / totalVotes).toFixed(1)
   const positive = ((good * 100) / totalVotes).toFixed(1)
   return (
     <table>
-      <th>
-        <td colspan='2'>statistics</td>
-      </th>
-      <StatisticLine text="good" value={good} />
-      <StatisticLine text="neutral" value={neutral} />
-      <StatisticLine text="bad" value={bad} />
-      <StatisticLine text="all" value={good + neutral + bad} />
-      <StatisticLine text="average" value={average} />
-      <StatisticLine text="positive" value={`${positive} %`} />
+      <thead>
+        <tr>
+          <td colSpan='2'>statistics</td>
+        </tr>
+      </thead>
+      <tbody>
+        <StatisticLine text="good" value={good} />
+        <StatisticLine text="neutral" value={neutral} />
+        <StatisticLine text="bad" value={bad} />
+        <StatisticLine text="all" value={good + neutral + bad} />
+        <StatisticLine text="average" value={average} />
+        <StatisticLine text="positive" value={`${positive} %`} />
+      </tbody>
     </table>
   )
 
