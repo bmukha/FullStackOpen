@@ -1,6 +1,10 @@
 const Header = ({ name }) => <h1>{name}</h1>
 
-// const Total = ({ sum }) => <p>Number of exercises {sum}</p>
+const Total = ({ parts }) => (
+  <strong>
+    <p>total of exercises {parts[0].exercises + parts[1].exercises + parts[2].exercises}</p>
+  </strong>
+)
 
 const Part = ({ part }) => (
   <p>
@@ -18,6 +22,7 @@ const Course = ({ course }) => (
   <>
     <Header name={course.name} />
     <Content parts={course.parts} />
+    <Total parts={course.parts} />
   </>
 )
 const App = () => {
