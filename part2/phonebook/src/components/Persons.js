@@ -1,9 +1,8 @@
+import Person from './Person';
 const Persons = ({ personsToRender }) => (
   <>
     {personsToRender.map((person) => (
-      <p key={person.id}>
-        {person.name} {person.number}
-      </p>
+      <Person key={person.id} person={person} />
     ))}
   </>
 );
