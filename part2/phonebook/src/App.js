@@ -6,8 +6,11 @@ const App = () => {
 
   const handleAddButtonClick = (event) => {
     event.preventDefault();
-    const newPerson = { name: newName };
-    setPersons([...persons, newPerson]);
+    if (persons.some((person) => person.name === newName)) {
+      alert(`${newName} is already added to phonebook`);
+    } else {
+      setPersons([...persons, { name: newName }]);
+    }
     setNewName('');
   };
 
