@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
+import Persons from './components/Persons';
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -47,11 +48,7 @@ const App = () => {
         handleAddButtonClick={handleAddButtonClick}
       />
       <h3>Numbers</h3>
-      {personsToRender.map((person) => (
-        <p key={person.id}>
-          {person.name} {person.number}
-        </p>
-      ))}
+      <Persons personsToRender={personsToRender} />
     </div>
   );
 };
