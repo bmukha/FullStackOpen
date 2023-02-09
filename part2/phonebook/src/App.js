@@ -12,7 +12,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/persons')
+      .get('http://10.0.0.110:3001/persons')
       .then((response) => setPersons(response.data));
   }, []);
 
@@ -21,10 +21,16 @@ const App = () => {
     if (persons.some((person) => person.name === newName)) {
       alert(`${newName} is already added to phonebook`);
     } else {
-      setPersons([
-        ...persons,
-        { name: newName, number: newNumber, id: persons.length + 1 },
-      ]);
+      const newPerson = {
+        name: newName,
+        number: newNumber,
+        id: persons.length + 1,
+      };
+      axios
+        .post('http://10.0.0.110:3001/persons', newPerson)
+        .then((response) => {
+          setPersons([...persons, response.data]);
+        });
     }
     setNewName('');
     setNewNumber('');
