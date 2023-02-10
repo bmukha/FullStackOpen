@@ -39,6 +39,11 @@
       "name": "test",
       "number": "test",
       "id": 8
+    },
+    {
+      "name": "ФЫ",
+      "number": "ФЫ",
+      "id": 9
     }
   ]
 }

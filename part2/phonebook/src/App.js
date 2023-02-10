@@ -19,16 +19,14 @@ const App = () => {
     if (persons.some((person) => person.name === newName)) {
       alert(`${newName} is already added to phonebook`);
     } else {
-      // const newPerson = {
-      //   name: newName,
-      //   number: newNumber,
-      //   id: persons.length + 1,
-      // };
-      // axios
-      //   .post('http://10.0.0.110:3001/persons', newPerson)
-      //   .then((response) => {
-      //     setPersons([...persons, response.data]);
-      //   });
+      const newPerson = {
+        name: newName,
+        number: newNumber,
+        id: persons.length + 1,
+      };
+      personsDB.add(newPerson).then((response) => {
+        setPersons([...persons, response.data]);
+      });
     }
     setNewName('');
     setNewNumber('');
