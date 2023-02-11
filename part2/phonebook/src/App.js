@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
-import personsDB from './services/persons';
+import personService from './services/persons';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -11,7 +11,7 @@ const App = () => {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    personsDB.getAll().then((response) => setPersons(response.data));
+    personService.getAll().then((response) => setPersons(response.data));
   }, []);
 
   const handleAddButtonClick = (event) => {
@@ -24,12 +24,23 @@ const App = () => {
         number: newNumber,
         id: persons.length + 1,
       };
-      personsDB.add(newPerson).then((response) => {
+      personService.addPerson(newPerson).then((response) => {
         setPersons([...persons, response.data]);
       });
     }
     setNewName('');
     setNewNumber('');
+  };
+
+  const handleDeleteButtonClick = (event) => {
+    const key = +event.target.dataset.key;
+    const person = persons.find((person) => person.id === key);
+    const deleteOrNot = window.confirm(`Delete ${person.name}?`);
+    if (!deleteOrNot) {
+      return;
+    }
+    personService.deletePerson(key);
+    setPersons(persons.filter((person) => person.id !== key));
   };
 
   const handleFilter = (event) => setFilter(event.target.value);
@@ -51,7 +62,10 @@ const App = () => {
         handleAddButtonClick={handleAddButtonClick}
       />
       <h3>Numbers</h3>
-      <Persons personsToRender={personsToRender} />
+      <Persons
+        personsToRender={personsToRender}
+        handleDeleteButtonClick={handleDeleteButtonClick}
+      />
     </div>
   );
 };

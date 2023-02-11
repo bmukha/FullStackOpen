@@ -1,12 +1,15 @@
 import axios from 'axios';
 
-const url = 'http://localhost';
+const url = 'http://10.0.0.110';
 const port = '3001';
 
 const getAll = () => axios.get(`${url}:${port}/persons`);
 
-const add = (newPerson) => axios.post(`${url}:${port}/persons`, newPerson);
+const addPerson = (newPerson) =>
+  axios.post(`${url}:${port}/persons`, newPerson);
 
-const persons = { getAll, add };
+const deletePerson = (id) => axios.delete(`${url}:${port}/persons/${id}`);
 
-export default persons;
+const personService = { getAll, addPerson, deletePerson };
+
+export default personService;

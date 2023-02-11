@@ -1,8 +1,12 @@
 import Person from './Person';
-const Persons = ({ personsToRender }) => (
+const Persons = ({ personsToRender, handleDeleteButtonClick }) => (
   <>
     {personsToRender.map((person) => (
-      <Person key={person.id} person={person} />
+      <Person
+        key={person.id}
+        person={person}
+        handleDeleteButtonClick={handleDeleteButtonClick}
+      />
     ))}
   </>
 );
