@@ -10,6 +10,9 @@ const addPerson = (newPerson) =>
 
 const deletePerson = (id) => axios.delete(`${url}:${port}/persons/${id}`);
 
-const personService = { getAll, addPerson, deletePerson };
+const updatePersonsNumber = (id, person) =>
+  axios.put(`${url}:${port}/persons/${id}`, person);
+
+const personService = { getAll, addPerson, deletePerson, updatePersonsNumber };
 
 export default personService;

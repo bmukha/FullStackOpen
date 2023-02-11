@@ -16,8 +16,24 @@ const App = () => {
 
   const handleAddButtonClick = (event) => {
     event.preventDefault();
-    if (persons.some((person) => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
+    const existingPerson = persons.find((person) => person.name === newName);
+    if (existingPerson) {
+      const replaceNUmberOrNot = window.confirm(
+        `${newName} is already added to phonebook, replace the old number with new one?`
+      );
+      if (replaceNUmberOrNot) {
+        personService
+          .updatePersonsNumber(existingPerson.id, {
+            ...existingPerson,
+            number: newNumber,
+          })
+          .then((response) =>
+            setPersons([
+              ...persons.filter((person) => person.id !== existingPerson.id),
+              response.data,
+            ])
+          );
+      }
     } else {
       const newPerson = {
         name: newName,
@@ -69,5 +85,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;
