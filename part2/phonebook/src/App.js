@@ -10,7 +10,7 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
-  const [infoMessage, setInfoMessage] = useState(null);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     personService.getAll().then((response) => setPersons(response.data));
@@ -34,9 +34,21 @@ const App = () => {
               ...persons.filter((person) => person.id !== existingPerson.id),
               response.data,
             ]);
-            setInfoMessage(`Phone number for ${response.data.name} changed`);
+            setMessage({
+              type: 'info',
+              text: `Phone number for ${response.data.name} changed`,
+            });
             setTimeout(() => {
-              setInfoMessage(null);
+              setMessage(null);
+            }, 5000);
+          })
+          .catch(() => {
+            setMessage({
+              type: 'error',
+              text: `Information of ${existingPerson.name} has already been removed from the server`,
+            });
+            setTimeout(() => {
+              setMessage(null);
             }, 5000);
           });
       }
@@ -48,9 +60,9 @@ const App = () => {
       };
       personService.addPerson(newPerson).then((response) => {
         setPersons([...persons, response.data]);
-        setInfoMessage(`Added ${response.data.name}`);
+        setMessage({ type: 'info', text: `Added ${response.data.name}` });
         setTimeout(() => {
-          setInfoMessage(null);
+          setMessage(null);
         }, 5000);
       });
     }
@@ -77,7 +89,7 @@ const App = () => {
 
   return (
     <div>
-      <Notification message={infoMessage} type='info' />
+      <Notification message={message} />
       <h2>Phonebook</h2>
       <Filter filter={filter} handleFilter={handleFilter} />
       <h3>Add a new</h3>

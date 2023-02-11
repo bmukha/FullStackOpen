@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "23",
-      "id": 1
-    },
-    {
       "name": "Ada Lovelace",
       "number": "555",
       "id": 2
@@ -19,16 +14,6 @@
       "name": "zxcz zxczx",
       "number": "88",
       "id": 4
-    },
-    {
-      "name": "фівфів",
-      "number": "фів",
-      "id": 5
-    },
-    {
-      "name": "фівфі",
-      "number": "фівфі",
-      "id": 6
     }
   ]
 }
