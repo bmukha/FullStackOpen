@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import Country from './components/Country';
+import CountryInList from './components/CountryInList';
 
 const App = () => {
   const [query, setQuery] = useState('');
@@ -36,26 +38,13 @@ const App = () => {
 
     if (countriesToRender.length > 1 && countriesToRender.length <= 10) {
       return countriesToRender.map((country) => (
-        <p key={country.name.common}>{country.name.common}</p>
+        <CountryInList key={country.name.common} country={country} />
       ));
     }
 
     if (countriesToRender.length === 1) {
       const [country] = countriesToRender;
-      return (
-        <>
-          <h2>{country.name.common}</h2>
-          <p>{`Capital: ${country.capital[0]}`}</p>
-          <p>{`Area: ${country.area}`}</p>
-          <h3>Languages:</h3>
-          <ul>
-            {Object.values(country.languages).map((language) => (
-              <li key={language}>{language}</li>
-            ))}
-          </ul>
-          <img src={country.flags.png} alt={`flag of ${country.name}`} />
-        </>
-      );
+      return <Country country={country} />;
     }
   };
 
@@ -65,8 +54,8 @@ const App = () => {
       <form>
         <label htmlFor=''>find countries: </label>
         <input type='text' value={query} onChange={handleChange} />
-        {renderCountries()}
       </form>
+      {renderCountries()}
     </>
   );
 };
