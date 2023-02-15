@@ -71,7 +71,7 @@ const App = () => {
   };
 
   const handleDeleteButtonClick = (event) => {
-    const key = +event.target.dataset.key;
+    const { key } = event.target.dataset;
     const person = persons.find((person) => person.id === key);
     const deleteOrNot = window.confirm(`Delete ${person.name}?`);
     if (!deleteOrNot) {
