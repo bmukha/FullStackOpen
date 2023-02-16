@@ -38,18 +38,12 @@ const App = () => {
               type: 'info',
               text: `Phone number for ${response.data.name} changed`,
             });
-            setTimeout(() => {
-              setMessage(null);
-            }, 5000);
           })
           .catch(() => {
             setMessage({
               type: 'error',
               text: `Information of ${existingPerson.name} has already been removed from the server`,
             });
-            setTimeout(() => {
-              setMessage(null);
-            }, 5000);
           });
       }
     } else {
@@ -62,9 +56,6 @@ const App = () => {
         .then((response) => {
           setPersons([...persons, response.data]);
           setMessage({ type: 'info', text: `Added ${response.data.name}` });
-          setTimeout(() => {
-            setMessage(null);
-          }, 5000);
         })
         .catch((error) => {
           console.log(error);
@@ -72,9 +63,6 @@ const App = () => {
             type: 'error',
             text: error.response.data.error,
           });
-          setTimeout(() => {
-            setMessage(null);
-          }, 5000);
         });
     }
     setNewName('');
@@ -100,7 +88,7 @@ const App = () => {
 
   return (
     <div>
-      <Notification message={message} />
+      <Notification message={message} setMessage={setMessage} />
       <h2>Phonebook</h2>
       <Filter filter={filter} handleFilter={handleFilter} />
       <h3>Add a new</h3>
