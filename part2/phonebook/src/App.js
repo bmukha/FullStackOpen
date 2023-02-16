@@ -56,15 +56,26 @@ const App = () => {
       const newPerson = {
         name: newName,
         number: newNumber,
-        id: persons.length + 1,
       };
-      personService.addPerson(newPerson).then((response) => {
-        setPersons([...persons, response.data]);
-        setMessage({ type: 'info', text: `Added ${response.data.name}` });
-        setTimeout(() => {
-          setMessage(null);
-        }, 5000);
-      });
+      personService
+        .addPerson(newPerson)
+        .then((response) => {
+          setPersons([...persons, response.data]);
+          setMessage({ type: 'info', text: `Added ${response.data.name}` });
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+        })
+        .catch((error) => {
+          console.log(error);
+          setMessage({
+            type: 'error',
+            text: error.response.data.error,
+          });
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+        });
     }
     setNewName('');
     setNewNumber('');
