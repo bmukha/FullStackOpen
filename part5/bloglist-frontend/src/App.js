@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Blog from './components/Blog';
 import LoginForm from './components/LoginForm';
 import blogService from './services/blogs';
-import loginService from './services/login';
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -14,20 +13,19 @@ const App = () => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
-
-    try {
-      const user = await loginService.login({
-        username,
-        password,
-      });
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser');
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
       setUser(user);
-      setUsername('');
-      setPassword('');
-    } catch (exception) {
-      console.error(exception);
+      blogService.setToken(user.token);
     }
+  }, []);
+
+  const hadleLogout = (event) => {
+    event.preventDefault();
+    setUser(null);
+    window.localStorage.removeItem('loggedBlogappUser');
   };
 
   return user === null ? (
@@ -36,13 +34,13 @@ const App = () => {
       setUsername={setUsername}
       password={password}
       setPassword={setPassword}
-      handleLogin={handleLogin}
       setUser={setUser}
     />
   ) : (
     <div>
       <h2>blogs</h2>
-      <p>{user.username} is logged in</p>
+      <span>{user.username} is logged in</span>
+      <button onClick={hadleLogout}>logout</button>
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
       ))}

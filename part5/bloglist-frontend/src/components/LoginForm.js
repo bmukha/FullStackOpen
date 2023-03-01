@@ -1,10 +1,29 @@
+import loginService from '../services/login';
+
 const LoginForm = ({
   username,
   setUsername,
   password,
   setPassword,
-  handleLogin,
+  setUser,
 }) => {
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      const user = await loginService.login({
+        username,
+        password,
+      });
+      window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user));
+      setUser(user);
+      setUsername('');
+      setPassword('');
+    } catch (exception) {
+      console.error(exception);
+    }
+  };
+
   return (
     <div>
       <h2>Log in to application</h2>
