@@ -1,10 +1,12 @@
 import blogService from '../services/blogs';
 import { useState } from 'react';
+import Notification from './Notification';
 
 const BlogForm = ({ user, blogs, setBlogs }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
+  const [message, setMessage] = useState(null);
   const hadleAddNewBlog = async (event) => {
     event.preventDefault();
     const newBlog = await blogService.addBlog(
@@ -15,6 +17,10 @@ const BlogForm = ({ user, blogs, setBlogs }) => {
     setAuthor('');
     setUrl('');
     setBlogs([...blogs, newBlog]);
+    setMessage({
+      text: `a new blog ${title} by ${author} is added`,
+      type: 'info',
+    });
   };
 
   return (
@@ -50,6 +56,9 @@ const BlogForm = ({ user, blogs, setBlogs }) => {
         </div>
         <button type='submit'>create</button>
       </form>
+      {message ? (
+        <Notification message={message} setMessage={setMessage} />
+      ) : null}
     </div>
   );
 };
