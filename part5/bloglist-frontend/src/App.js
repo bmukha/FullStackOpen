@@ -40,7 +40,7 @@ const App = () => {
         <Blog key={blog.id} blog={blog} />
       ))}
       <Togglable
-        onButtonLabel='new note'
+        onButtonLabel='new blog'
         offButtonLabel='cancel'
         ref={blogFormRef}>
         <BlogForm

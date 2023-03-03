@@ -7,6 +7,7 @@ const BlogForm = ({ user, blogs, setBlogs, blogFormRef }) => {
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
   const [message, setMessage] = useState(null);
+
   const hadleAddNewBlog = async (event) => {
     event.preventDefault();
     const newBlog = await blogService.addBlog(
