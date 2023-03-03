@@ -39,7 +39,10 @@ const App = () => {
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
       ))}
-      <Togglable buttonLabel='new note' ref={blogFormRef}>
+      <Togglable
+        onButtonLabel='new note'
+        offButtonLabel='cancel'
+        ref={blogFormRef}>
         <BlogForm
           user={user}
           blogs={blogs}
