@@ -21,11 +21,11 @@ const setToken = (newToken) => {
   token = `Bearer ${newToken}`;
 };
 
-const updateBlog = async (blog, token) => {
+const updateBlog = async (id, blog, token) => {
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
-  const response = await axios.put(`${baseUrl}/${blog.id}`, blog, config);
+  const response = await axios.put(`${baseUrl}/${id}`, blog, config);
   return response.data;
 };
 

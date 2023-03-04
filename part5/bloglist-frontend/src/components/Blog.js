@@ -6,8 +6,7 @@ const Blog = ({ blog, blogs, setBlogs }) => {
   const { username, _id, token } = blog.user;
 
   const handleLikeClick = async () => {
-    const newBlog = await blogService.updateBlog({
-      id,
+    const newBlog = await blogService.updateBlog(id, {
       title,
       author,
       url,
