@@ -1,29 +1,29 @@
-import blogService from '../services/blogs';
-import { useState } from 'react';
-import Notification from './Notification';
+import blogService from '../services/blogs'
+import { useState } from 'react'
+import Notification from './Notification'
 
 const BlogForm = ({ user, blogs, setBlogs, blogFormRef }) => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [url, setUrl] = useState('');
-  const [message, setMessage] = useState(null);
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
+  const [message, setMessage] = useState(null)
 
   const hadleAddNewBlog = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     const newBlog = await blogService.addBlog(
       { title, author, url },
       user.token
-    );
-    setTitle('');
-    setAuthor('');
-    setUrl('');
-    setBlogs([...blogs, newBlog]);
+    )
+    setTitle('')
+    setAuthor('')
+    setUrl('')
+    setBlogs([...blogs, newBlog])
     setMessage({
       text: `a new blog ${title} by ${author} is added`,
       type: 'info',
-    });
-    blogFormRef.current.toggleVisibility();
-  };
+    })
+    blogFormRef.current.toggleVisibility()
+  }
 
   return (
     <div>
@@ -62,7 +62,7 @@ const BlogForm = ({ user, blogs, setBlogs, blogFormRef }) => {
         <Notification message={message} setMessage={setMessage} />
       ) : null}
     </div>
-  );
-};
+  )
+}
 
-export default BlogForm;
+export default BlogForm

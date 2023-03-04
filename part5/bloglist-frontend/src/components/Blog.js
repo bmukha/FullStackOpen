@@ -1,10 +1,10 @@
-import Togglable from './Tobblable';
-import blogService from '../services/blogs';
+import Togglable from './Tobblable'
+import blogService from '../services/blogs'
 
 const Blog = ({ blog, blogs, setBlogs, user }) => {
-  const { title, author, url, likes, id } = blog;
-  const { username, _id } = blog.user;
-  const { token } = user;
+  const { title, author, url, likes, id } = blog
+  const { username, _id } = blog.user
+  const { token } = user
   const handleLikeClick = async () => {
     const newBlog = await blogService.updateBlog(
       id,
@@ -16,21 +16,21 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
         user: _id,
       },
       token
-    );
+    )
     const updatedBlogsArray = blogs.map((blog) =>
       blog.id !== newBlog.id ? blog : newBlog
-    );
-    setBlogs(updatedBlogsArray);
-  };
+    )
+    setBlogs(updatedBlogsArray)
+  }
 
   const handleDeleteClick = async () => {
-    const deletePrompt = window.confirm(`Delete blog ${title} by ${author}?`);
+    const deletePrompt = window.confirm(`Delete blog ${title} by ${author}?`)
     if (deletePrompt) {
-      await blogService.deleteBlog(blog, token);
-      const updatedBlogsArray = blogs.filter((blog) => blog.id !== id);
-      setBlogs(updatedBlogsArray);
+      await blogService.deleteBlog(blog, token)
+      const updatedBlogsArray = blogs.filter((blog) => blog.id !== id)
+      setBlogs(updatedBlogsArray)
     }
-  };
+  }
 
   return (
     <div className='blog'>
@@ -43,9 +43,9 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
           <button onClick={handleLikeClick}>like</button>
         </div>
         <p>Created by: {username}</p>
-        <button onClick={handleDeleteClick}>remove</button>
+        {_id === user.id ? <button onClick={handleDeleteClick}>remove</button> : null}
       </Togglable>
     </div>
-  );
-};
-export default Blog;
+  )
+}
+export default Blog

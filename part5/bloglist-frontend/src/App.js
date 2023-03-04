@@ -1,33 +1,33 @@
-import { useState, useEffect, useRef } from 'react';
-import Blog from './components/Blog';
-import BlogForm from './components/BlogForm';
-import LoginForm from './components/LoginForm';
-import Togglable from './components/Tobblable';
-import blogService from './services/blogs';
+import { useState, useEffect, useRef } from 'react'
+import Blog from './components/Blog'
+import BlogForm from './components/BlogForm'
+import LoginForm from './components/LoginForm'
+import Togglable from './components/Tobblable'
+import blogService from './services/blogs'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [user, setUser] = useState(null);
-  const blogFormRef = useRef();
+  const [blogs, setBlogs] = useState([])
+  const [user, setUser] = useState(null)
+  const blogFormRef = useRef()
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
-  }, []);
+    blogService.getAll().then((blogs) => setBlogs(blogs))
+  }, [])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser');
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      setUser(user);
-      blogService.setToken(user.token);
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      blogService.setToken(user.token)
     }
-  }, []);
+  }, [])
 
   const hadleLogout = (event) => {
-    event.preventDefault();
-    setUser(null);
-    window.localStorage.removeItem('loggedBlogappUser');
-  };
+    event.preventDefault()
+    setUser(null)
+    window.localStorage.removeItem('loggedBlogappUser')
+  }
 
   return user === null ? (
     <LoginForm setUser={setUser} />
@@ -53,7 +53,7 @@ const App = () => {
         />
       </Togglable>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
