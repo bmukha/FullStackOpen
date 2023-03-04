@@ -37,7 +37,7 @@ const App = () => {
       <span>{user.username} is logged in</span>
       <button onClick={hadleLogout}>logout</button>
       {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} />
       ))}
       <Togglable
         onButtonLabel='new blog'
